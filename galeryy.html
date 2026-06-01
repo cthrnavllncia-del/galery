@@ -1,0 +1,2657 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Museum of Memories</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+cursor:none;
+}
+
+:root{
+
+--gold:#c89c58;
+--gold-light:#e9c992;
+
+--cream:#faf7f2;
+--cream2:#f5efe6;
+--cream3:#efe5d8;
+
+--text:#4c3d2c;
+
+}
+
+body{
+
+font-family:'Poppins',sans-serif;
+
+background:
+linear-gradient(
+135deg,
+var(--cream),
+var(--cream2),
+var(--cream3)
+);
+
+overflow-x:hidden;
+
+color:var(--text);
+
+}
+
+/* ===================== */
+/* CUSTOM CURSOR */
+/* ===================== */
+
+.cursor{
+
+position:fixed;
+
+width:25px;
+height:25px;
+
+border-radius:50%;
+
+border:
+1px solid rgba(200,156,88,.8);
+
+pointer-events:none;
+
+z-index:99999;
+
+transform:
+translate(-50%,-50%);
+
+transition:
+width .3s,
+height .3s,
+background .3s;
+
+backdrop-filter:blur(5px);
+
+}
+
+.cursor-dot{
+
+position:fixed;
+
+width:6px;
+height:6px;
+
+border-radius:50%;
+
+background:var(--gold);
+
+pointer-events:none;
+
+z-index:99999;
+
+transform:
+translate(-50%,-50%);
+
+}
+
+/* ===================== */
+/* LOADING SCREEN */
+/* ===================== */
+
+.loader{
+
+position:fixed;
+
+inset:0;
+
+background:
+linear-gradient(
+135deg,
+#faf7f2,
+#f3ebdf
+);
+
+z-index:100000;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+flex-direction:column;
+
+transition:1.5s;
+
+}
+
+.loader.hide{
+
+opacity:0;
+visibility:hidden;
+
+}
+
+.loader h1{
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:5rem;
+
+font-weight:700;
+
+margin-bottom:15px;
+
+color:#4c3d2c;
+
+}
+
+.loader p{
+
+letter-spacing:3px;
+
+font-size:.8rem;
+
+color:#9a7b4f;
+
+}
+
+.loader-line{
+
+width:250px;
+height:2px;
+
+margin-top:25px;
+
+background:
+rgba(200,156,88,.2);
+
+overflow:hidden;
+
+position:relative;
+
+}
+
+.loader-line::after{
+
+content:"";
+
+position:absolute;
+
+left:-100%;
+
+width:100%;
+height:100%;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+var(--gold),
+transparent
+);
+
+animation:
+loadingMove 2s infinite;
+
+}
+
+@keyframes loadingMove{
+
+100%{
+left:100%;
+}
+
+}
+
+/* ===================== */
+/* SUN GLOW */
+/* ===================== */
+
+.sun-glow{
+
+position:fixed;
+
+width:1200px;
+height:1200px;
+
+background:
+radial-gradient(
+circle,
+rgba(255,220,140,.45),
+rgba(255,220,140,.15),
+transparent 70%
+);
+
+top:-500px;
+left:-350px;
+
+pointer-events:none;
+
+animation:
+glowFloat 10s ease-in-out infinite;
+
+}
+
+@keyframes glowFloat{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(40px);
+}
+
+}
+
+/* ===================== */
+/* FLOATING DUST */
+/* ===================== */
+
+.dust{
+
+position:fixed;
+
+width:4px;
+height:4px;
+
+border-radius:50%;
+
+background:
+rgba(200,156,88,.35);
+
+pointer-events:none;
+
+animation:
+dustFloat linear infinite;
+
+}
+
+@keyframes dustFloat{
+
+from{
+
+transform:
+translateY(110vh);
+
+opacity:0;
+
+}
+
+20%{
+opacity:1;
+}
+
+to{
+
+transform:
+translateY(-20vh);
+
+opacity:0;
+
+}
+
+}
+
+/* ===================== */
+/* INTRO */
+/* ===================== */
+
+.hero{
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+padding:80px 8%;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.hero-content{
+
+max-width:1200px;
+
+text-align:center;
+
+}
+
+.hero-badge{
+
+display:inline-block;
+
+padding:
+12px 25px;
+
+border-radius:50px;
+
+background:
+rgba(255,255,255,.45);
+
+backdrop-filter:
+blur(25px);
+
+border:
+1px solid rgba(255,255,255,.8);
+
+box-shadow:
+0 15px 40px rgba(0,0,0,.05);
+
+margin-bottom:35px;
+
+letter-spacing:3px;
+
+font-size:.8rem;
+
+font-weight:600;
+
+}
+
+.hero-title{
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:8rem;
+
+line-height:.9;
+
+margin-bottom:25px;
+
+color:#4c3d2c;
+
+}
+
+.hero-sub{
+
+max-width:700px;
+
+margin:auto;
+
+line-height:2.2;
+
+font-size:1.05rem;
+
+color:#72614f;
+
+margin-bottom:50px;
+
+}
+
+/* ===================== */
+/* BUTTON */
+/* ===================== */
+
+.enter-btn{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:
+20px 38px;
+
+border-radius:60px;
+
+text-decoration:none;
+
+color:white;
+
+font-weight:600;
+
+background:
+linear-gradient(
+135deg,
+#d9b97f,
+#b88b4a
+);
+
+box-shadow:
+0 25px 60px rgba(184,139,74,.35);
+
+transition:.5s;
+
+}
+
+.enter-btn:hover{
+
+transform:
+translateY(-8px);
+
+box-shadow:
+0 35px 80px rgba(184,139,74,.45);
+
+}
+
+/* ===================== */
+/* GLASS QUOTE */
+/* ===================== */
+
+.quote-card{
+
+margin:auto;
+
+margin-top:60px;
+
+max-width:500px;
+
+padding:30px;
+
+border-radius:35px;
+
+background:
+rgba(255,255,255,.45);
+
+backdrop-filter:
+blur(25px);
+
+border:
+1px solid rgba(255,255,255,.8);
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.05);
+
+}
+
+.quote-card p{
+
+line-height:2;
+
+color:#6f624f;
+
+}
+
+/* ===================== */
+/* MOBILE */
+/* ===================== */
+
+@media(max-width:900px){
+
+.hero-title{
+
+font-size:4.5rem;
+
+}
+
+.hero-sub{
+
+font-size:.95rem;
+
+}
+
+.loader h1{
+
+font-size:3rem;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="loader">
+
+<h1>The Museum of Memories</h1>
+
+<p>LUXURY DIGITAL EXHIBITION</p>
+
+<div class="loader-line"></div>
+
+</div>
+
+<div class="cursor"></div>
+<div class="cursor-dot"></div>
+
+<div class="sun-glow"></div>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div class="hero-badge">
+✦ A COLLECTION BEYOND TIME
+</div>
+
+<h1 class="hero-title">
+The Museum<br>
+of Memories
+</h1>
+
+<p class="hero-sub">
+
+Setiap foto menyimpan sepotong cerita.
+
+
+Sebagian mengabadikan tawa, sebagian merekam momen yang berlalu begitu cepat,
+dan sebagian lainnya tumbuh menjadi kenangan yang semakin berharga seiring waktu.
+
+Selamat datang di koleksi kenangan ini, 
+tempat setiap momen diabadikan dan setiap cerita tetap hidup.
+
+</p>
+
+<a href="#corridor" class="enter-btn">
+
+Lihat Kenangan →
+
+</a>
+
+<div class="quote-card">
+
+<p>
+
+"Foto-foto adalah pencerita yang tak bersuara.
+
+Jauh setelah sebuah momen berlalu,
+mereka tetap berbicara kepada hati."
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- PART 2 DIMULAI DARI SINI -->
+<!-- ===================================== -->
+<!-- MEMORY CORRIDOR -->
+<!-- ===================================== -->
+
+<section id="corridor" class="corridor-section">
+
+<div class="collection-number">001</div>
+
+<div class="corridor-intro">
+
+<span>✦ EXHIBITION I</span>
+
+<h2>The Beginning</h2>
+
+<p>
+
+Sebelum kenangan bertumbuh, 
+ada momen-momen seperti ini. Sederhana, tenang, dan belum menyadari betapa berharganya mereka kelak
+
+</p>
+
+</div>
+
+<div class="corridor-track">
+
+<!-- PHOTO 1 -->
+
+<div class="memory-frame left reveal">
+
+<div class="frame-image">
+
+<img src="49.jpg">
+
+</div>
+
+<div class="frame-card">
+
+<h3>Memory One</h3>
+
+<p>
+
+Hari Guru pertama kami bersama Bu Mila.
+Wali kelas pertama IPS 2, yang tanpa sadar menjadi awal dari semua cerita kami di sini.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- PHOTO 2 -->
+
+<div class="memory-frame right reveal">
+
+<div class="frame-image">
+
+<img src="48.jpg">
+
+</div>
+
+<div class="frame-card">
+
+<h3>Memory Two</h3>
+
+<p>
+
+Kami tidak tahu bahwa saat itu adalah awal dari segalanya.
+Lima orang berdiri, menari dalam budaya, dan meninggalkan jejak kecil di panggung perpisahan.
+IPS 2 mulai berbicara lewat langkah pertama kami di sana.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- PHOTO 3 -->
+
+<div class="memory-frame left reveal">
+
+<div class="frame-image">
+
+<img src="54.jpg">
+
+</div>
+
+<div class="frame-card">
+
+<h3>Memory Three</h3>
+
+<p>
+
+Hari Guru terakhir bersama Pak Suha.
+Saat itu kami sudah bukan sekadar teman sekelas, tapi satu kesatuan yang tumbuh bersama.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- EXHIBITION II -->
+<!-- ===================================== -->
+
+<section class="corridor-section">
+
+<div class="collection-number">002</div>
+
+<div class="corridor-intro">
+
+<span>✦ EXHIBITION II</span>
+
+<h2>Moments Worth Keeping</h2>
+
+<p>
+
+Beberapa momen terasa biasa saja saat terjadi.
+
+Hanya nanti kita menyadari
+bahwa momen itu telah menjadi kenangan
+
+</p>
+
+</div>
+
+<div class="gallery-row">
+
+<div class="lux-frame reveal">
+
+<img src="MENJENGUK RAFI.jpg">
+
+</div>
+
+<div class="lux-frame reveal">
+
+<img src="100.jpg">
+
+</div>
+
+<div class="lux-frame reveal">
+
+<img src="101.jpg">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- COLLECTION III -->
+<!-- ===================================== -->
+
+<section class="collection-section">
+
+<div class="collection-number">003</div>
+
+<div class="collection-header">
+
+<span>✦ CURATED COLLECTION</span>
+
+<h2>Featured Memories</h2>
+
+</div>
+
+<div class="featured-grid">
+
+<div class="featured-card reveal">
+
+<img src="7.jpg">
+
+<div class="featured-overlay">
+
+<h3>Collection 01</h3>
+
+</div>
+
+</div>
+
+<div class="featured-card reveal">
+
+<img src="12.jpg">
+
+<div class="featured-overlay">
+
+<h3>Collection 02</h3>
+
+</div>
+
+</div>
+
+<div class="featured-card reveal">
+
+<img src="14.jpg">
+
+<div class="featured-overlay">
+
+<h3>Collection 03</h3>
+
+</div>
+
+</div>
+
+<div class="featured-card reveal">
+
+<img src="15.jpg">
+
+<div class="featured-overlay">
+
+<h3>Collection 04</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<style>
+
+/* ===================================== */
+/* CORRIDOR */
+/* ===================================== */
+
+.corridor-section{
+
+position:relative;
+
+padding:180px 8%;
+
+}
+
+.collection-number{
+
+position:absolute;
+
+right:5%;
+
+top:50px;
+
+font-size:18rem;
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-weight:700;
+
+color:
+rgba(184,139,74,.07);
+
+pointer-events:none;
+
+user-select:none;
+
+}
+
+/* ===================================== */
+/* INTRO */
+/* ===================================== */
+
+.corridor-intro{
+
+text-align:center;
+
+max-width:850px;
+
+margin:auto;
+margin-bottom:120px;
+
+}
+
+.corridor-intro span{
+
+letter-spacing:3px;
+
+font-size:.8rem;
+
+font-weight:600;
+
+color:#b88b4a;
+
+}
+
+.corridor-intro h2{
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:5.5rem;
+
+margin:20px 0;
+
+color:#4d3f2f;
+
+}
+
+.corridor-intro p{
+
+line-height:2.2;
+
+color:#746754;
+
+}
+
+/* ===================================== */
+/* TRACK */
+/* ===================================== */
+
+.corridor-track{
+
+max-width:1400px;
+
+margin:auto;
+
+display:flex;
+
+flex-direction:column;
+
+gap:180px;
+
+}
+
+/* ===================================== */
+/* MEMORY FRAME */
+/* ===================================== */
+
+.memory-frame{
+
+display:flex;
+
+align-items:center;
+
+gap:60px;
+
+}
+
+.memory-frame.right{
+
+flex-direction:row-reverse;
+
+}
+
+.frame-image{
+
+width:55%;
+
+padding:20px;
+
+border-radius:40px;
+
+background:
+rgba(255,255,255,.45);
+
+backdrop-filter:
+blur(30px);
+
+border:
+1px solid rgba(255,255,255,.8);
+
+box-shadow:
+0 30px 80px rgba(0,0,0,.06);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.frame-image::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+background:
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.35),
+transparent
+);
+
+transform:
+translateX(-100%);
+
+transition:1.5s;
+
+}
+
+.frame-image:hover::before{
+
+transform:
+translateX(100%);
+
+}
+
+.frame-image img{
+
+width:100%;
+
+height:650px;
+
+object-fit:cover;
+
+border-radius:25px;
+
+display:block;
+
+}
+
+.frame-card{
+
+width:45%;
+
+padding:40px;
+
+border-radius:35px;
+
+background:
+rgba(255,255,255,.45);
+
+backdrop-filter:
+blur(25px);
+
+border:
+1px solid rgba(255,255,255,.8);
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.05);
+
+}
+
+.frame-card h3{
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:3rem;
+
+margin-bottom:15px;
+
+}
+
+.frame-card p{
+
+line-height:2;
+
+color:#6f624f;
+
+}
+
+/* ===================================== */
+/* ROW */
+/* ===================================== */
+
+.gallery-row{
+
+max-width:1400px;
+
+margin:auto;
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:30px;
+
+}
+
+.lux-frame{
+
+padding:15px;
+
+border-radius:35px;
+
+background:
+rgba(255,255,255,.45);
+
+backdrop-filter:
+blur(25px);
+
+border:
+1px solid rgba(255,255,255,.8);
+
+box-shadow:
+0 25px 70px rgba(0,0,0,.05);
+
+transition:.5s;
+
+}
+
+.lux-frame:hover{
+
+transform:
+translateY(-12px);
+
+}
+
+.lux-frame img{
+
+width:100%;
+height:520px;
+
+object-fit:cover;
+
+border-radius:25px;
+
+}
+
+/* ===================================== */
+/* FEATURED GRID */
+/* ===================================== */
+
+.collection-section{
+
+padding:180px 8%;
+
+position:relative;
+
+}
+
+.collection-header{
+
+text-align:center;
+
+margin-bottom:100px;
+
+}
+
+.collection-header span{
+
+letter-spacing:3px;
+
+font-size:.8rem;
+
+font-weight:600;
+
+color:#b88b4a;
+
+}
+
+.collection-header h2{
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:5.5rem;
+
+margin-top:20px;
+
+}
+
+.featured-grid{
+
+max-width:1400px;
+
+margin:auto;
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:35px;
+
+}
+
+.featured-card{
+
+position:relative;
+
+overflow:hidden;
+
+border-radius:40px;
+
+cursor:pointer;
+
+}
+
+.featured-card img{
+
+width:100%;
+height:700px;
+
+object-fit:cover;
+
+display:block;
+
+transition:1s;
+
+}
+
+.featured-card:hover img{
+
+transform:scale(1.08);
+
+}
+
+.featured-overlay{
+
+position:absolute;
+
+left:30px;
+bottom:30px;
+
+padding:20px 30px;
+
+border-radius:25px;
+
+background:
+rgba(255,255,255,.35);
+
+backdrop-filter:
+blur(25px);
+
+border:
+1px solid rgba(255,255,255,.8);
+
+}
+
+.featured-overlay h3{
+
+font-size:1.2rem;
+
+}
+
+/* ===================================== */
+/* REVEAL */
+/* ===================================== */
+
+.reveal{
+
+opacity:0;
+
+transform:
+translateY(80px);
+
+transition:1.2s ease;
+
+}
+
+.reveal.active{
+
+opacity:1;
+
+transform:
+translateY(0);
+
+}
+
+/* ===================================== */
+/* MOBILE */
+/* ===================================== */
+
+@media(max-width:1000px){
+
+.collection-number{
+
+font-size:8rem;
+
+}
+
+.corridor-intro h2,
+.collection-header h2{
+
+font-size:3.5rem;
+
+}
+
+.memory-frame,
+.memory-frame.right{
+
+flex-direction:column;
+
+}
+
+.frame-image,
+.frame-card{
+
+width:100%;
+
+}
+
+.frame-image img{
+
+height:450px;
+
+}
+
+.gallery-row{
+
+grid-template-columns:1fr;
+
+}
+
+.featured-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.featured-card img{
+
+height:450px;
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* ===================================== */
+/* REVEAL ENGINE */
+/* ===================================== */
+
+const observer =
+new IntersectionObserver((entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add('active');
+
+}
+
+});
+
+},{
+threshold:.15
+});
+
+document
+.querySelectorAll('.reveal')
+.forEach(el=>{
+
+observer.observe(el);
+
+});
+
+</script>
+
+<!-- ===================================== -->
+<!-- PART 3 DIMULAI DARI SINI -->
+<!-- ===================================== -->
+<!-- FLOATING MEMORY WALL -->
+<!-- ===================================== -->
+
+<section class="memory-wall-section">
+
+<div class="collection-number">004</div>
+
+<div class="wall-header">
+
+<span>✦ MEMORY WALL</span>
+
+<h2>Fragments of Time</h2>
+
+<p>
+
+Tidak selalu satu cerita.
+
+Tapi setiap foto punya caranya sendiri untuk membuat hati tetap teduh
+
+</p>
+
+</div>
+
+<div class="memory-wall">
+
+<div class="wall-item large reveal">
+<img src="39.jpg">
+</div>
+
+<div class="wall-item reveal">
+<img src="45.jpg">
+</div>
+
+<div class="wall-item reveal">
+<img src="53.jpg">
+</div>
+
+<div class="wall-item tall reveal">
+<img src="47.jpg">
+</div>
+
+<div class="wall-item reveal">
+<img src="51.jpg">
+</div>
+
+<div class="wall-item wide reveal">
+<img src="52.jpg">
+</div>
+
+<div class="wall-item reveal">
+<img src="16.jpg">
+</div>
+
+<div class="wall-item reveal">
+<img src="23.jpg">
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- APPLE VISION PRO SHOWCASE -->
+<!-- ===================================== -->
+
+<section class="vision-section">
+
+<div class="collection-number">005</div>
+
+<div class="vision-container">
+
+<div class="vision-left reveal">
+
+<span>✦ IMMERSIVE EXPERIENCE</span>
+
+<h2>
+Beyond
+Photographs
+</h2>
+
+<p>
+
+Foto angkatan terakhir kami.
+Satu kelas, satu waktu, yang tak akan terulang lagi.
+
+</p>
+
+</div>
+
+<div class="vision-right">
+
+<div class="floating-photo photo-a reveal">
+<img src="1.jpg">
+</div>
+
+<div class="floating-photo photo-b reveal">
+<img src="5.jpg">
+</div>
+
+<div class="floating-photo photo-c reveal">
+<img src="18.jpg">
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- PREMIUM COLLECTION -->
+<!-- ===================================== -->
+
+<section class="premium-section">
+
+<div class="collection-number">006</div>
+
+<div class="premium-header">
+
+<span>✦ CURATED EXHIBITION</span>
+
+<h2>The Collection</h2>
+
+</div>
+
+<div class="premium-grid">
+
+<div class="premium-card reveal">
+
+<img src="35.jpg">
+
+<div class="premium-info">
+
+<h3>Collection 001</h3>
+
+<p>
+
+Bukan akhir dari cerita kami, hanya akhir dari bab ini.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="premium-card reveal">
+
+<img src="30.jpg">
+
+<div class="premium-info">
+
+<h3>Collection 002</h3>
+
+<p>Momennya berakhir. Kenangannya tetap tinggal.</p>
+
+</div>
+
+</div>
+
+<div class="premium-card reveal">
+
+<img src="27.jpg">
+
+<div class="premium-info">
+
+<h3>Collection 003</h3>
+
+<p>Kami datang sebagai orang asing. Kami pergi sebagai kenangan.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<style>
+
+/* ===================================== */
+/* MEMORY WALL */
+/* ===================================== */
+
+.memory-wall-section{
+
+padding:200px 8%;
+
+position:relative;
+
+}
+
+.wall-header{
+
+text-align:center;
+
+max-width:850px;
+
+margin:auto;
+margin-bottom:100px;
+
+}
+
+.wall-header span{
+
+letter-spacing:3px;
+font-size:.8rem;
+font-weight:600;
+color:#b88b4a;
+
+}
+
+.wall-header h2{
+
+font-family:'Cormorant Garamond',serif;
+
+font-size:5.5rem;
+
+margin:20px 0;
+
+}
+
+.wall-header p{
+
+line-height:2.2;
+color:#746754;
+
+}
+
+.memory-wall{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+grid-auto-rows:250px;
+
+gap:25px;
+
+max-width:1500px;
+
+margin:auto;
+
+}
+
+.wall-item{
+
+overflow:hidden;
+
+border-radius:35px;
+
+background:
+rgba(255,255,255,.45);
+
+padding:12px;
+
+backdrop-filter:blur(25px);
+
+border:1px solid rgba(255,255,255,.8);
+
+transition:.6s;
+
+}
+
+.memory-wall:hover .wall-item{
+
+filter:blur(3px);
+opacity:.6;
+
+}
+
+.memory-wall .wall-item:hover{
+
+filter:none;
+opacity:1;
+
+transform:
+scale(1.05);
+
+z-index:5;
+
+}
+
+.wall-item img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+border-radius:25px;
+
+}
+
+.wall-item.large{
+
+grid-column:span 2;
+grid-row:span 2;
+
+}
+
+.wall-item.tall{
+
+grid-row:span 2;
+
+}
+
+.wall-item.wide{
+
+grid-column:span 2;
+
+}
+
+/* ===================================== */
+/* VISION */
+/* ===================================== */
+
+.vision-section{
+
+padding:220px 8%;
+
+position:relative;
+
+}
+
+.vision-container{
+
+max-width:1500px;
+
+margin:auto;
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:100px;
+
+align-items:center;
+
+}
+
+.vision-left h2{
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:6rem;
+
+line-height:.9;
+
+margin:25px 0;
+
+}
+
+.vision-left span{
+
+letter-spacing:3px;
+
+font-size:.8rem;
+
+font-weight:600;
+
+color:#b88b4a;
+
+}
+
+.vision-left p{
+
+line-height:2.2;
+
+color:#746754;
+
+max-width:550px;
+
+}
+
+.vision-right{
+
+position:relative;
+
+height:850px;
+
+}
+
+.floating-photo{
+
+position:absolute;
+
+padding:15px;
+
+background:
+rgba(255,255,255,.45);
+
+backdrop-filter:
+blur(25px);
+
+border-radius:35px;
+
+border:
+1px solid rgba(255,255,255,.8);
+
+box-shadow:
+0 25px 70px rgba(0,0,0,.05);
+
+}
+
+.floating-photo img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+border-radius:25px;
+
+}
+
+.photo-a{
+
+width:320px;
+height:420px;
+
+left:0;
+top:80px;
+
+}
+
+.photo-b{
+
+width:380px;
+height:520px;
+
+right:0;
+top:0;
+
+}
+
+.photo-c{
+
+width:340px;
+height:450px;
+
+left:120px;
+bottom:0;
+
+}
+
+/* ===================================== */
+/* PREMIUM */
+/* ===================================== */
+
+.premium-section{
+
+padding:220px 8%;
+
+position:relative;
+
+}
+
+.premium-header{
+
+text-align:center;
+
+margin-bottom:100px;
+
+}
+
+.premium-header span{
+
+letter-spacing:3px;
+
+font-size:.8rem;
+
+font-weight:600;
+
+color:#b88b4a;
+
+}
+
+.premium-header h2{
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:5.5rem;
+
+margin-top:20px;
+
+}
+
+.premium-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:30px;
+
+max-width:1500px;
+
+margin:auto;
+
+}
+
+.premium-card{
+
+overflow:hidden;
+
+border-radius:40px;
+
+background:
+rgba(255,255,255,.45);
+
+padding:15px;
+
+backdrop-filter:
+blur(25px);
+
+border:
+1px solid rgba(255,255,255,.8);
+
+box-shadow:
+0 20px 60px rgba(0,0,0,.05);
+
+transition:.5s;
+
+}
+
+.premium-card:hover{
+
+transform:
+translateY(-15px);
+
+}
+
+.premium-card img{
+
+width:100%;
+height:550px;
+
+object-fit:cover;
+
+border-radius:25px;
+
+}
+
+.premium-info{
+
+padding:25px 10px;
+
+}
+
+.premium-info h3{
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:2rem;
+
+margin-bottom:10px;
+
+}
+
+/* ===================================== */
+/* MOBILE */
+/* ===================================== */
+
+@media(max-width:1000px){
+
+.memory-wall{
+
+grid-template-columns:1fr;
+
+grid-auto-rows:auto;
+
+}
+
+.wall-item.large,
+.wall-item.tall,
+.wall-item.wide{
+
+grid-column:auto;
+grid-row:auto;
+
+}
+
+.wall-item img{
+
+height:350px;
+
+}
+
+.vision-container{
+
+grid-template-columns:1fr;
+
+}
+
+.vision-left h2{
+
+font-size:4rem;
+
+}
+
+.vision-right{
+
+height:auto;
+
+display:flex;
+flex-direction:column;
+gap:25px;
+
+}
+
+.floating-photo{
+
+position:relative;
+
+width:100% !important;
+height:400px !important;
+
+left:auto !important;
+right:auto !important;
+top:auto !important;
+bottom:auto !important;
+
+}
+
+.premium-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* ===================================== */
+/* APPLE PARALLAX */
+/* ===================================== */
+
+document.addEventListener('mousemove',(e)=>{
+
+const x =
+(e.clientX/window.innerWidth-.5)*20;
+
+const y =
+(e.clientY/window.innerHeight-.5)*20;
+
+document
+.querySelectorAll('.floating-photo')
+.forEach((card,index)=>{
+
+const depth =
+(index+1)*0.7;
+
+card.style.transform =
+`translate(${x*depth}px,${y*depth}px)`;
+
+});
+
+});
+
+</script>
+
+<!-- ===================================== -->
+<!-- PART 4 DIMULAI DARI SINI -->
+<!-- ===================================== -->
+<!-- FULLSCREEN EXPERIENCE -->
+<!-- ===================================== -->
+
+<div class="museum-viewer">
+
+<button class="viewer-close">✕</button>
+
+<button class="viewer-prev">←</button>
+
+<img id="viewerImage">
+
+<button class="viewer-next">→</button>
+
+<div class="viewer-caption">
+
+<span>MEMORY COLLECTION</span>
+
+<h3 id="viewerTitle">
+Collection
+</h3>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- FINAL CHAPTER -->
+<!-- ===================================== -->
+
+<section class="final-chapter">
+
+<div class="chapter-glow"></div>
+
+<div class="chapter-content reveal">
+
+<span>✦ FINAL CHAPTER</span>
+
+<h2>
+
+Some Memories Fade.
+
+Some Become
+Part Of Who We Are.
+
+</h2>
+
+<p>
+
+Every photograph in this exhibition
+represents a moment that once existed
+only for a second.
+
+Yet somehow,
+through memories,
+those moments continue to live.
+
+Thank you for visiting this collection.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- LUXURY FOOTER -->
+<!-- ===================================== -->
+
+<footer class="museum-footer">
+
+<div class="footer-sun"></div>
+
+<h2>
+The Museum of Memories
+</h2>
+
+<p>
+A Collection Beyond Time
+</p>
+
+<span>
+@12socialtwo
+</span>
+
+</footer>
+
+<style>
+
+/* ===================================== */
+/* VIEWER */
+/* ===================================== */
+
+.museum-viewer{
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(10,10,10,.95);
+
+backdrop-filter:
+blur(20px);
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+opacity:0;
+visibility:hidden;
+
+transition:.5s;
+
+z-index:999999;
+
+}
+
+.museum-viewer.active{
+
+opacity:1;
+visibility:visible;
+
+}
+
+.museum-viewer img{
+
+max-width:85%;
+max-height:85%;
+
+border-radius:25px;
+
+box-shadow:
+0 40px 120px rgba(0,0,0,.5);
+
+animation:
+viewerZoom .5s ease;
+
+}
+
+@keyframes viewerZoom{
+
+from{
+
+transform:
+scale(.9);
+
+opacity:0;
+
+}
+
+to{
+
+transform:
+scale(1);
+
+opacity:1;
+
+}
+
+}
+
+.viewer-close,
+.viewer-prev,
+.viewer-next{
+
+position:absolute;
+
+border:none;
+
+background:
+rgba(255,255,255,.08);
+
+backdrop-filter:
+blur(15px);
+
+color:white;
+
+width:65px;
+height:65px;
+
+border-radius:50%;
+
+font-size:1.4rem;
+
+cursor:pointer;
+
+}
+
+.viewer-close{
+
+top:40px;
+right:40px;
+
+}
+
+.viewer-prev{
+
+left:40px;
+
+}
+
+.viewer-next{
+
+right:40px;
+
+}
+
+.viewer-caption{
+
+position:absolute;
+
+left:60px;
+bottom:50px;
+
+color:white;
+
+}
+
+.viewer-caption span{
+
+font-size:.8rem;
+
+letter-spacing:3px;
+
+opacity:.7;
+
+}
+
+.viewer-caption h3{
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:2.5rem;
+
+margin-top:10px;
+
+}
+
+/* ===================================== */
+/* FINAL CHAPTER */
+/* ===================================== */
+
+.final-chapter{
+
+position:relative;
+
+padding:260px 8%;
+
+text-align:center;
+
+overflow:hidden;
+
+}
+
+.chapter-glow{
+
+position:absolute;
+
+left:50%;
+top:50%;
+
+transform:
+translate(-50%,-50%);
+
+width:900px;
+height:900px;
+
+background:
+radial-gradient(
+circle,
+rgba(255,220,150,.25),
+transparent 70%
+);
+
+pointer-events:none;
+
+}
+
+.chapter-content{
+
+position:relative;
+
+max-width:1000px;
+
+margin:auto;
+
+}
+
+.chapter-content span{
+
+letter-spacing:3px;
+
+font-size:.8rem;
+
+font-weight:600;
+
+color:#b88b4a;
+
+}
+
+.chapter-content h2{
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:6.5rem;
+
+line-height:.95;
+
+margin:
+30px 0;
+
+color:#4d3f2f;
+
+}
+
+.chapter-content p{
+
+max-width:700px;
+
+margin:auto;
+
+line-height:2.3;
+
+color:#746754;
+
+}
+
+/* ===================================== */
+/* FOOTER */
+/* ===================================== */
+
+.museum-footer{
+
+position:relative;
+
+padding:
+180px 20px;
+
+text-align:center;
+
+overflow:hidden;
+
+}
+
+.footer-sun{
+
+position:absolute;
+
+left:50%;
+top:50%;
+
+transform:
+translate(-50%,-50%);
+
+width:700px;
+height:700px;
+
+background:
+radial-gradient(
+circle,
+rgba(255,215,140,.22),
+transparent 70%
+);
+
+pointer-events:none;
+
+}
+
+.museum-footer h2{
+
+position:relative;
+
+font-family:
+'Cormorant Garamond',serif;
+
+font-size:6rem;
+
+margin-bottom:15px;
+
+color:#4d3f2f;
+
+}
+
+.museum-footer p{
+
+position:relative;
+
+font-size:1.3rem;
+
+color:#b88b4a;
+
+margin-bottom:10px;
+
+}
+
+.museum-footer span{
+
+position:relative;
+
+color:#746754;
+
+}
+
+/* ===================================== */
+/* MOBILE */
+/* ===================================== */
+
+@media(max-width:1000px){
+
+.chapter-content h2{
+
+font-size:3.8rem;
+
+}
+
+.museum-footer h2{
+
+font-size:3.5rem;
+
+}
+
+.viewer-prev,
+.viewer-next{
+
+display:none;
+
+}
+
+}
+
+</style>
+
+<script>
+
+/* ===================================== */
+/* FULLSCREEN VIEWER */
+/* ===================================== */
+
+const viewer =
+document.querySelector('.museum-viewer');
+
+const viewerImg =
+document.getElementById('viewerImage');
+
+const viewerTitle =
+document.getElementById('viewerTitle');
+
+const images =
+document.querySelectorAll('img');
+
+let currentIndex = 0;
+
+const galleryImages =
+[...document.querySelectorAll(
+'.frame-image img,.lux-frame img,.featured-card img,.wall-item img,.floating-photo img,.premium-card img'
+)];
+
+galleryImages.forEach((img,index)=>{
+
+img.addEventListener('click',()=>{
+
+currentIndex=index;
+
+viewer.classList.add('active');
+
+viewerImg.src=img.src;
+
+viewerTitle.innerText=
+`Collection ${String(index+1).padStart(3,'0')}`;
+
+});
+
+});
+
+function updateViewer(){
+
+viewerImg.src=
+galleryImages[currentIndex].src;
+
+viewerTitle.innerText=
+`Collection ${String(currentIndex+1).padStart(3,'0')}`;
+
+}
+
+document
+.querySelector('.viewer-next')
+.addEventListener('click',()=>{
+
+currentIndex++;
+
+if(currentIndex>=galleryImages.length){
+
+currentIndex=0;
+
+}
+
+updateViewer();
+
+});
+
+document
+.querySelector('.viewer-prev')
+.addEventListener('click',()=>{
+
+currentIndex--;
+
+if(currentIndex<0){
+
+currentIndex=
+galleryImages.length-1;
+
+}
+
+updateViewer();
+
+});
+
+document
+.querySelector('.viewer-close')
+.addEventListener('click',()=>{
+
+viewer.classList.remove('active');
+
+});
+
+viewer.addEventListener('click',(e)=>{
+
+if(e.target===viewer){
+
+viewer.classList.remove('active');
+
+}
+
+});
+
+/* ===================================== */
+/* SCROLL REVEAL */
+/* ===================================== */
+
+const museumObserver =
+new IntersectionObserver((entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add('active');
+
+}
+
+});
+
+},{
+threshold:.15
+});
+
+document
+.querySelectorAll('.reveal')
+.forEach(el=>{
+
+museumObserver.observe(el);
+
+});
+
+/* ===================================== */
+/* END DOCUMENT */
+/* ===================================== */
+
+</script>
+
+</body>
+</html>
+<!-- FULLSCREEN PHOTO EXPERIENCE -->
+<!-- APPLE PHOTOS TRANSITION -->
+<!-- CINEMATIC ENDING -->
+<!-- LUXURY FOOTER -->
+<!-- ===================================== -->
+<!-- APPLE VISION PRO GALLERY -->
+<!-- FLOATING MEMORY WALL -->
+<!-- PARALLAX SYSTEM -->
+<!-- ===================================== -->
+<!-- MEMORY CORRIDOR -->
+<!-- FLOATING EXHIBITIONS -->
+<!-- GIANT COLLECTION NUMBERS -->
+<!-- ========================= -->
+
+<script>
+
+/* ===================== */
+/* LOADER */
+/* ===================== */
+
+window.addEventListener('load',()=>{
+
+setTimeout(()=>{
+
+document
+.querySelector('.loader')
+.classList.add('hide');
+
+},2200);
+
+});
+
+/* ===================== */
+/* CURSOR */
+/* ===================== */
+
+const cursor =
+document.querySelector('.cursor');
+
+const dot =
+document.querySelector('.cursor-dot');
+
+document.addEventListener('mousemove',(e)=>{
+
+cursor.style.left=e.clientX+'px';
+cursor.style.top=e.clientY+'px';
+
+dot.style.left=e.clientX+'px';
+dot.style.top=e.clientY+'px';
+
+});
+
+/* ===================== */
+/* DUST */
+/* ===================== */
+
+for(let i=0;i<40;i++){
+
+const dust=
+document.createElement('div');
+
+dust.classList.add('dust');
+
+dust.style.left=
+Math.random()*100+'%';
+
+dust.style.animationDuration=
+(10+Math.random()*10)+'s';
+
+document.body.appendChild(dust);
+
+}
+
+</script>
